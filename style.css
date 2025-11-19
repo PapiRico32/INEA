@@ -1,0 +1,215 @@
+:root {
+  --topbar-height: 95px;
+  --sidebar-width: 260px;
+
+  --color1: #276254;
+  --color2: #B2891B;
+  --color3: #7C273F;
+}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+  background: #f0f4f8;
+}
+
+/* ----- TOPBAR ----- */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--topbar-height);
+  background: var(--color1);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+/* TÍTULO INEA */
+.title {
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* ----- BOTÓN FLOTANTE FUERA DEL HEADER ----- */
+.floating-menu-btn {
+  position: fixed;
+  top: 18px;
+  left: 15px;
+  z-index: 3000; /* AHORA SÍ está por arriba del menú */
+  background: var(--color2);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  font-size: 1.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.floating-menu-btn:hover {
+  background: var(--color3);
+}
+
+/* ----- SIDEBAR ----- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: calc(-1 * var(--sidebar-width));
+  width: var(--sidebar-width);
+  height: 100vh;
+  padding-top: var(--topbar-height);
+  background: var(--color3);
+  color: white;
+  transition: left 0.35s ease;
+  z-index: 2000;
+}
+
+.sidebar.show {
+  left: 0;
+}
+
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.menu a {
+  padding: 12px 0;
+  color: white;
+  font-size: 17px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.menu a:hover {
+  color: var(--color2);
+}
+
+/* CONTENIDO (aumenté padding-top) */
+.content {
+  padding-top: calc(var(--topbar-height));
+  padding-left: 20px;
+  padding-right: 20px;
+  min-height: 100vh;
+  justify-content: center;  
+  align-items: center;       
+}
+
+        .text-block {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 35px 45px;
+            background: #ffffffdd; 
+            backdrop-filter: blur(2px);
+            border-left: 8px solid #B2891B;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #222;
+        }
+
+        /* Encabezado del texto */
+        .text-block h2 {
+            margin-top: 0;
+            color: #276254;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Párrafos */
+        .text-block p {
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        /* Resaltado de partes importantes */
+        .text-block strong {
+            color: #7C273F;
+        }
+
+        /* Separadores bonitos */
+        .text-block hr {
+            border: none;
+            border-top: 2px solid #B2891B55;
+            margin: 25px 0;
+        }
+
+/* FOOTER */
+.footer {
+  background: var(--color1);
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Línea divisoria */
+.footer hr {
+  border-color: var(--color2);
+  width: 80%;
+  margin: 20px auto;
+}
+
+/* Sección única para items del footer */
+.footer-item {
+  text-align: center;
+  margin: 0 10px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.footer-item h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--color2);
+}
+
+.footer-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-item ul li {
+  margin-bottom: 5px;
+}
+.footer-item a{
+    color: white;
+}
+
+
+/* Contenedor de secciones principales */
+.footer-nav {
+  display: flex;
+  justify-content: space-between;  /* mismo espacio entre columnas */
+  gap: 40px;
+  flex-wrap: wrap;                 /* adaptable en móvil */
+  margin-bottom: 20px;
+}
+
+/* Pie final */
+.footer-payments {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-payments span {
+  color: #ddd;
+  font-size: 1.1rem;
+}
+

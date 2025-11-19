@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>INEA - Educación para Todos</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+        .boton-izquierdo,
+        .boton-derecho {
+            position: absolute;
+            top: 37%;
+            transform: translateY(-90%-60px);
+            width: 60px; 
+            height: 60px; 
+            background-color: rgba(255, 255, 255, 0.5); 
+            border: none;
+            border-radius: 50%; 
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #333; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s ease;
+        }
+        .boton-izquierdo:hover,
+        .boton-derecho:hover {
+            background-color: rgba(255, 255, 255, 0.8); 
+        }
+        .boton-izquierdo {
+            left: 10px;
+        }
+        .boton-derecho {
+            right: 10px;
+        }
+        .content1{
+            background-image: url(img1.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease-in-out;
+            height: 100vh;
+        }
+
+  </style>
+</head>
+
+<body>
+
+<!-- BOTÓN FIJO (fuera del header para que no se oculte) -->
+<button class="floating-menu-btn" id="menuToggle">
+  <i class="fa-solid fa-bars"></i>
+</button>
+
+<header class="topbar">
+  <h1 class="title">INEA</h1>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <nav class="menu">
+    <a href="index.html">Inicio</a>
+    <a href="quehacemos.html">¿Qué hacemos?</a>
+    <a href="enlaces.html">Enlaces</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="ubicacion.html">Ubicación</a>
+  </nav>
+</aside>
+
+<!-- CONTENIDO -->
+<main class="content1">
+
+        <button class="boton-izquierdo" onclick="FondoA()">&lt;</button>
+        <button class="boton-derecho" onclick="FondoS()">&gt;</button>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+    <div class="footer-nav">
+        <div class="footer-item">
+            <h3>GRUPO</h3>
+            <ul>
+                <li><a>LITIID015</a></li>
+            </ul>
+        </div>
+        <div class="footer-item">
+            <h3>REDES SOCIALES</h3>
+            <ul>
+                <li><a href="http://twitter.com/INEAmx" target="_blank">Twitter</a></li>
+                <li><a href="http://www.facebook.com/IneaNacional" target="_blank">Facebook</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-nav">
+        <div class="footer-item">
+            <h3>INTEGRANTES</h3>
+            <ul>
+                <li><a>Martínez Velázquez Ángel</a></li>
+                <li><a>Rodriguez Cruz Jesús Yair</a></li>
+                <li><a>Mata Landaverde Giovanni Jesús</a></li>
+                <li><a>Arteaga Espinoza Enrique Leonel</a></li>
+                <li><a>Ríos Andrade Ángel Eduardo</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-item">
+            <h3>DOCENTE</h3>
+            <ul>
+                <li><a>Elizabeth Mejía</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="footer-payments">
+        <span>UTEQ</span>
+    </div>
+</footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>
+<script>
+        var imagenActual = 1; 
+        var intervalo; 
+
+        function FondoA() {
+            imagenActual = (imagenActual === 1) ? 6 : imagenActual - 1; 
+            actualizarFondo();
+            reiniciarIntervalo();
+        }
+        
+        function FondoS() {
+            imagenActual = (imagenActual === 6) ? 1 : imagenActual + 1; 
+            actualizarFondo();
+            reiniciarIntervalo();
+        }
+
+        function actualizarFondo() {
+            const main = document.querySelector('.content1');
+            var urlImagen = `img${imagenActual}.jpg`; 
+            main.style.backgroundImage = `url('${urlImagen}')`;
+        }
+
+        function cambio() {
+            intervalo = setInterval(function() {
+                FondoS();
+            }, 3000);
+        }
+
+        function reiniciarIntervalo() {
+            clearInterval(intervalo);
+            cambio();
+        }
+        
+        window.onload = function() {
+            cambio();
+        };
+    </script>
