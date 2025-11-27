@@ -1,168 +1,551 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>INEA - Educación para Todos</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>INEA - Unidad 5 Querétaro</title>
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Fuentes y Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-        .boton-izquierdo,
-        .boton-derecho {
-            position: absolute;
-            top: 37%;
-            transform: translateY(-90%-60px);
-            width: 60px; 
-            height: 60px; 
-            background-color: rgba(255, 255, 255, 0.5); 
-            border: none;
-            border-radius: 50%; 
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 40px;
-            color: #333; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
-            transition: background-color 0.3s ease;
-        }
-        .boton-izquierdo:hover,
-        .boton-derecho:hover {
-            background-color: rgba(255, 255, 255, 0.8); 
-        }
-        .boton-izquierdo {
-            left: 10px;
-        }
-        .boton-derecho {
-            right: 10px;
-        }
-        .content1{
-            background-image: url(img1.jpg);
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: background-image 0.5s ease-in-out;
-            height: 100vh;
-        }
+    :root{
+      --topbar-height: 95px;
+      --menu-height: 60px;
+      --color1: #276254; /* verde */
+      --color2: #B2891B; /* dorado */
+      --color3: #7C273F; /* vino */
+      --bg-page: #f0f4f8;
+      --max-content: 1100px;
+      --radius: 12px;
+    }
+
+    *{box-sizing:border-box}
+    html { scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-page);
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* ===== TOPBAR ===== */
+    .topbar{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:var(--topbar-height);
+      background:var(--color1);
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 18px;
+      z-index:1200;
+      box-shadow:0 2px 6px rgba(0,0,0,0.12);
+
+    }
+    .topbar .brand{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .title{
+      font-size:2.2rem;
+      font-weight:700;
+      letter-spacing:1px;
+      margin:0;
+    }
+    .right-label{
+      font-size:1.05rem;
+      font-weight:600;
+      background:transparent;
+      padding:8px 12px;
+      border-radius:8px;
+      color:#fff;
+      opacity:0.95;
+    }
+
+    /* ===== MENU (debajo del topbar) ===== */
+    .main-menu{
+      position:fixed;
+      top:var(--topbar-height);
+      left:0;
+      right:0;
+      height:var(--menu-height);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg, rgba(39, 98, 84,0.8), rgba(39, 98, 84,0.4));
+      z-index:1100;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+
+
+    flex-wrap: wrap;    /* <-- permite que los enlaces bajen a la siguiente línea */
+
+    }
+  .main-menu nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  flex-wrap: wrap; /* <-- IMPORTANTE */
+}
+
+    .main-menu a{
+      text-decoration:none;
+      color:white;
+      background:transparent;
+      padding:10px 14px;
+      border-radius:8px;
+      font-weight:600;
+      transition:all .18s ease;
+      display:inline-block;
+    }
+    .main-menu a:hover,
+    .main-menu a.active{
+      color:var(--color1);
+      background:var(--color2);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    /* ===== PAGE LAYOUT ===== */
+    main{
+      padding-top: calc(var(--topbar-height) + var(--menu-height));
+      min-height:100vh;
+    }
+
+    /* Slider / Hero (full viewport) */
+    .hero {
+      position:relative;
+      height:100vh;
+      max-height: 920px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .hero__slide{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      transition:opacity .7s ease, transform .7s ease;
+      opacity:0;
+      transform:scale(1.02);
+    }
+    .hero__slide.show{
+      opacity:1;
+      transform:scale(1);
+      z-index:2;
+    }
+    .hero__overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.25));
+      z-index:1;
+    }
+    .hero__content{
+      position:relative;
+      z-index:3;
+      color:white;
+      text-align:center;
+      max-width:980px;
+      padding:18px;
+    }
+    .hero__content h2{
+      margin:0 0 8px;
+      font-size:2.4rem;
+      letter-spacing:1px;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+    .hero__content p{ margin:0; font-size:1.05rem; text-shadow: 0 4px 14px rgba(0,0,0,0.85); line-height:1.6; }
+
+    /* Slider arrows */
+    .hero .arrow {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      border:none;
+      background: rgba(255,255,255,0.7);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.4rem;
+      cursor:pointer;
+      z-index:4;
+      box-shadow:0 6px 20px rgba(0,0,0,0.2);
+      transition:background .2s;
+    }
+    .hero .arrow:hover{ background: rgba(255,255,255,0.95); }
+    .hero .arrow.left{ left:18px; }
+    .hero .arrow.right{ right:18px; }
+
+    /* Small dot indicators */
+    .dots{
+      position:absolute;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:5;
+      display:flex;
+      gap:8px;
+    }
+    .dots button{
+      width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,0.6);cursor:pointer;
+    }
+    .dots button.active{ background:var(--color2); width:12px; height:12px; }
+
+    /* ===== TEXT BLOCKS / CONTENT SECTIONS ===== */
+    .container{
+      max-width: var(--max-content);
+      margin: 40px auto;
+      padding: 0 18px;
+    }
+    .card{
+      background: #ffffffdd;
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      border-left:8px solid var(--color2);
+      margin-bottom:30px;
+      line-height:1.75;
+    }
+    .card h2{
+      margin-top:0;
+      color:var(--color1);
+      font-size:1.9rem;
+      text-align:center;
+      letter-spacing:1px;
+    }
+
+    /* LINKS list */
+    .links-list{ padding-left:18px; }
+    .links-list li{ margin-bottom:10px; }
+
+    /* MAP */
+    .map-container{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      margin: 20px 0 40px;
+    }
+    .map-container iframe{
+      width:90%;
+      max-width:1100px;
+      height:550px;
+      border:none;
+      border-radius:16px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.25);
+      outline:5px solid var(--color2);
+    }
+
+    /* FOOTER */
+    footer.footer{
+      background:var(--color1);
+      color:white;
+      padding: 40px 18px;
+      margin-top:30px;
+    }
+    .footer-nav{
+      display:flex;
+      gap:30px;
+      justify-content:space-between;
+      max-width:var(--max-content);
+      margin:0 auto 20px;
+      flex-wrap:wrap;
+    }
+
+    .footer-item{ flex:1; min-width:180px; }
+    .footer-item h3{ color:var(--color2); margin-bottom:8px; font-size:1.05rem;}
+    .footer-item ul{ list-style:none;padding:0;margin:0; }
+    .footer-item li{ margin-bottom:6px; }
+    .footer-item a{ color:white; text-decoration:none; }
+
+    .footer hr{ border-color:var(--color2); width:80%; margin:20px auto; }
+
+    /* RESPONSIVE */
+    @media (max-width:900px){
+      .title{ font-size:1.6rem; }
+      .hero__content h2{ font-size:1.6rem; }
+      .main-menu a{ padding:8px 10px; font-size:0.95rem; }
+      .topbar{ padding:0 12px; }
+      .main-menu nav{
+        background:linear-gradient(180deg, rgba(39, 98, 84,0.8), rgba(39, 98, 84,0.4));
+      }
+    }
 
   </style>
 </head>
-
 <body>
 
-<!-- BOTÓN FIJO (fuera del header para que no se oculte) -->
-<button class="floating-menu-btn" id="menuToggle">
-  <i class="fa-solid fa-bars"></i>
-</button>
-
-<header class="topbar">
-  <h1 class="title">INEA</h1>
-</header>
-
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-  <nav class="menu">
-    <a href="index.html">Inicio</a>
-    <a href="quehacemos.html">¿Qué hacemos?</a>
-    <a href="enlaces.html">Enlaces</a>
-    <a href="contacto.html">Contacto</a>
-    <a href="ubicacion.html">Ubicación</a>
-  </nav>
-</aside>
-
-<!-- CONTENIDO -->
-<main class="content1">
-
-        <button class="boton-izquierdo" onclick="FondoA()">&lt;</button>
-        <button class="boton-derecho" onclick="FondoS()">&gt;</button>
-
-</main>
-
-<!-- FOOTER -->
-<footer class="footer" role="contentinfo">
-    <div class="footer-nav">
-        <div class="footer-item">
-            <h3>GRUPO</h3>
-            <ul>
-                <li><a>LITIID015</a></li>
-            </ul>
-        </div>
-        <div class="footer-item">
-            <h3>REDES SOCIALES</h3>
-            <ul>
-                <li><a href="http://twitter.com/INEAmx" target="_blank">Twitter</a></li>
-                <li><a href="http://www.facebook.com/IneaNacional" target="_blank">Facebook</a></li>
-            </ul>
-        </div>
+  <!-- TOPBAR -->
+  <header class="topbar" role="banner">
+    <div class="brand" aria-hidden="false">
+      <h1 class="title">INEA</h1>
     </div>
 
-    <div class="footer-nav">
-        <div class="footer-item">
-            <h3>INTEGRANTES</h3>
-            <ul>
-                <li><a>Martínez Velázquez Ángel</a></li>
-                <li><a>Rodriguez Cruz Jesús Yair</a></li>
-                <li><a>Mata Landaverde Giovanni Jesús</a></li>
-                <li><a>Arteaga Espinoza Enrique Leonel</a></li>
-                <li><a>Ríos Andrade Ángel Eduardo</a></li>
-            </ul>
-        </div>
+    <!-- CENTRO (se deja vacío para centrar visualmente) -->
+    <div aria-hidden="true"></div>
 
-        <div class="footer-item">
-            <h3>DOCENTE</h3>
-            <ul>
-                <li><a>Elizabeth Mejía</a></li>
-            </ul>
-        </div>
-    </div>
+    <div class="right-label" aria-hidden="false">Unidad 5 — Querétaro</div>
+  </header>
+
+  <!-- MENU FIJO DEBAJO DEL TOPBAR -->
+  <div class="main-menu" role="navigation" aria-label="Menú principal">
+    <nav>
+      <a href="#inicio" class="menu-link">Inicio</a>
+      <a href="#quehacemos" class="menu-link">¿Qué hacemos?</a>
+      <a href="#enlaces" class="menu-link">Enlaces</a>
+      <a href="#contacto" class="menu-link">Contacto</a>
+      <a href="#ubicacion" class="menu-link">Ubicación</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- HERO / SLIDER -->
+    <section id="inicio" class="hero" aria-label="Slider principal">
+      <!-- slides: reemplaza img1.jpg ... img6.jpg por tus imágenes -->
+      <div class="hero__slide show" data-index="1" style="background-image:url('img1.jpg')"></div>
+      <div class="hero__slide" data-index="2" style="background-image:url('img2.jpg')"></div>
+      <div class="hero__slide" data-index="3" style="background-image:url('img3.jpg')"></div>
+      <div class="hero__slide" data-index="4" style="background-image:url('img4.jpg')"></div>
+      <div class="hero__slide" data-index="5" style="background-image:url('img5.jpg')"></div>
+      <div class="hero__slide" data-index="5" style="background-image:url('img6.jpg')"></div>
+      <div class="hero__slide" data-index="7" style="background-image:url('img7.jpg')"></div>
+      <div class="hero__slide" data-index="8" style="background-image:url('img8.jpg')"></div>
+      <div class="hero__slide" data-index="9" style="background-image:url('img9.jpg')"></div>
+
+
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="hero__content container">
+        <h2>INEA — Educación para todos</h2>
+        <p>Instituto Nacional para la Educación de los Adultos. Promovemos la certificación de la educación básica para jóvenes y adultos en todo México.</p>
+      </div>
+
+      <button class="arrow left" aria-label="Anterior" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="arrow right" aria-label="Siguiente" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+
+      <div class="dots" id="dots" aria-hidden="false">
+        <button data-to="1" class="active"></button>
+        <button data-to="2"></button>
+        <button data-to="3"></button>
+        <button data-to="4"></button>
+        <button data-to="5"></button>
+        <button data-to="6"></button>
+        <button data-to="7"></button>
+        <button data-to="8"></button>
+        <button data-to="9"></button>
+      </div>
+    </section>
+
+    <!-- ¿Qué hacemos? -->
+    <section id="quehacemos" class="container" aria-labelledby="qh-title">
+      <article class="card">
+        <h2 id="qh-title">¿Qué hacemos?</h2>
+
+    <p>El Instituto Nacional para la Educación de los Adultos (INEA) es un organismo descentralizado de la Administración Pública Federal, con personalidad jurídica y patrimonio propio, creado por decreto presidencial publicado en el Diario Oficial de la Federación el 31 de agosto de 1981.</p>
+
+    <p>En cumplimiento de sus atribuciones, el INEA propone y desarrolla modelos educativos, realiza investigaciones sobre la materia, elabora y distribuye materiales didácticos, aplica sistemas para la evaluación del aprendizaje de los adultos, así como acredita y certifica la educación básica para adultos y jóvenes de 15 años y más que no hayan cursado o concluido dichos estudios en los términos del artículo 43 de la Ley General de Educación. El INEA tiene el propósito de preservar la unidad educativa nacional para que la educación básica de las personas jóvenes y adultas se acredite y certifique con validez en toda la República.</p>
 
     <hr>
 
-    <div class="footer-payments">
-        <span>UTEQ</span>
+    <p>A su vez, el INEA continúa proporcionando, a través de algunas delegaciones, los servicios de educación básica: alfabetización, primaria, secundaria y educación para la vida y el trabajo, en los estados en los que aún no se concluye el proceso de descentralización.</p>
+
+    <p>Con el objetivo de asegurar una aplicación eficiente, eficaz, equitativa y transparente de los recursos públicos, se emiten las Reglas de Operación para este año. Los Institutos y Delegaciones Estatales habrán de cumplir con los requisitos de información nacional y deberán enviar al INEA informes trimestrales sobre el presupuesto ejercido, a nivel de capítulo y concepto de gasto, así como el cumplimiento de metas y objetivos, con base en los indicadores de resultados previstos en este documento. Dichos informes serán enviados a más tardar durante los 15 días hábiles posteriores a la terminación de cada trimestre.</p>
+
+    <hr>
+
+    <p>Además se realizará una evaluación nacional de resultados de cada programa y proyecto educativo en los Institutos y Delegaciones Estatales a efecto de que los resultados sean considerados en el proceso de análisis y aprobación del Presupuesto de Egresos de la Federación para el siguiente ejercicio fiscal. Dicha evaluación estará a cargo de alguna de las instituciones académicas y de investigación u organismos especializados, de carácter nacional o internacional, que cuenten con reconocimiento y experiencia sobre la educación de adultos, y que cumplan con los requisitos mínimos emitidos por la Secretaría de Hacienda y Crédito Público (SHCP) y la Secretaría de la Función Pública (SFP).</p>
+          <video width="640" height="360" controls>
+  <source src="video1.mp4" type="video/mp4">
+
+  Tu navegador no soporta la reproducción de video.
+</video>
+      </article>
+    </section>
+
+    <!-- Enlaces (integrada) -->
+    <section id="enlaces" class="container" aria-labelledby="enl-title">
+      <article class="card">
+        <h2 id="enl-title">Enlaces Externos</h2>
+        <ul class="links-list">
+          <li><a href="http://www.cursosinea.conevyt.org.mx/index.php?option=com_k2&view=item&layout=item&id=658&Itemid=254" target="_blank" rel="noopener">Repositorio de Materiales Educativos</a></li>
+          <li><a href="http://www.ineaformate.conevyt.org.mx/" target="_blank" rel="noopener">FormaT</a></li>
+          <li><a href="http://mevytenprueba.inea.gob.mx/alfabetizador/" target="_blank" rel="noopener">Curso en línea: Para ser alfabetizador</a></li>
+          <li><a href="http://www.funcionpublica.gob.mx/denuncia/" target="_blank" rel="noopener">Denuncia los actos de corrupción</a></li>
+          <li><a href="http://www.inea.gob.mx/colaboracion/Asuntos/Asuntos_internacionales.html" target="_blank" rel="noopener">Atención en el exterior</a></li>
+          <li><a href="http://www.ineaformate.conevyt.org.mx/phocadownload/otros/pronunciamiento_de_la_lengua_materna.pdf" target="_blank" rel="noopener">Pronunciamiento del Movimiento Nacional por la Diversidad Cultural</a></li>
+          <li><a href="https://tinyurl.com/y7m8pfsd" target="_blank" rel="noopener">Padrón de beneficiarios</a></li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="container" aria-labelledby="ct-title">
+      <article class="card">
+        <h2 id="ct-title">Contacto</h2>
+        <p>Av. Pie de la Cuesta 413, Desarrollo San Pablo, 76125 Santiago de Querétaro, Qro.</p>
+        <p>Teléfono: 442 224 0555</p>
+        <p>Atención Ciudadana: 800-0060-300</p>
+        <hr>
+        <h3>¿De qué se trata tu petición?</h3>
+        <p>Envía tus dudas o comentarios a <a href="mailto:atencion_inea@inea.gob.mx">atencion_inea@inea.gob.mx</a></p>
+      </article>
+    </section>
+
+    <!-- Ubicación (mapa) -->
+    <section id="ubicacion" class="container" aria-labelledby="ub-title">
+      <article class="card">
+        <h2 id="ub-title">Ubicación</h2>
+        <div class="map-container" aria-hidden="false">
+          <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1N9AKYWQnIBgwq_o1aOEWQjA7gs2tVW8&ehbc=2E312F" title="Mapa de ubicación"></iframe>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-nav">
+      <div class="footer-item">
+        <h3>GRUPO</h3>
+        <ul><li>LITIID015</li></ul>
+      </div>
+
+      <div class="footer-item">
+        <h3>REDES SOCIALES</h3>
+        <ul>
+          <li><a href="http://twitter.com/INEAmx" target="_blank" rel="noopener">Twitter</a></li>
+          <li><a href="http://www.facebook.com/IneaNacional" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-item">
+        <h3>INTEGRANTES</h3>
+        <ul>
+          <li>Martínez Velázquez Ángel</li>
+          <li>Rodriguez Cruz Jesús Yair</li>
+          <li>Mata Landaverde Giovanni Jesús</li>
+          <li>Arteaga Espinoza Enrique Leonel</li>
+          <li>Ríos Andrade Ángel Eduardo</li>
+        </ul>
+      </div>
+
+      <div class="footer-item">
+        <h3>DOCENTE</h3>
+        <ul><li>Elizabeth Mejía</li></ul>
+      </div>
     </div>
-</footer>
 
+    <hr>
+    <div style="text-align:center; padding-top:10px;">
+      <span style="color:#ddd; font-size:1.05rem;">UTEQ</span>
+    </div>
+  </footer>
 
-<script src="script.js"></script>
+  <!-- SCRIPTS -->
+  <script>
+    // ====== SLIDER (fácil de configurar) ======
+    (function(){
+      const slides = Array.from(document.querySelectorAll('.hero__slide'));
+      const dots = Array.from(document.querySelectorAll('#dots button'));
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      let current = 0;
+      let interval = null;
+      const SLIDE_TIME = 3000;
+
+      function show(index){
+        slides.forEach((s,i)=> s.classList.toggle('show', i===index));
+        dots.forEach((d,i)=> d.classList.toggle('active', i===index));
+        current = index;
+      }
+
+      function next(){
+        let nxt = (current + 1) % slides.length;
+        show(nxt);
+      }
+      function prev(){
+        let p = (current - 1 + slides.length) % slides.length;
+        show(p);
+      }
+
+      // auto play
+      function start(){ interval = setInterval(next, SLIDE_TIME); }
+      function stop(){ clearInterval(interval); interval = null; }
+
+      // init
+      dots.forEach((d,i)=>{
+        d.addEventListener('click', ()=>{ show(i); stop(); start(); });
+      });
+      nextBtn.addEventListener('click', ()=>{ next(); stop(); start(); });
+      prevBtn.addEventListener('click', ()=>{ prev(); stop(); start(); });
+
+      // start slider
+      show(0);
+      start();
+
+      // pause on hover for better UX
+      const hero = document.querySelector('.hero');
+      hero.addEventListener('mouseenter', stop);
+      hero.addEventListener('mouseleave', start);
+    })();
+
+    // ====== MENU LINKS: marcar activo según scroll ======
+    (function(){
+      const links = document.querySelectorAll('.menu-link');
+      const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
+      const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar-height')) + parseInt(getComputedStyle(document.documentElement).getPropertyValue('--menu-height'));
+
+      function onScroll(){
+        const y = window.scrollY + offset + 20;
+        let idx = sections.length - 1;
+        for(let i=0;i<sections.length;i++){
+          if(sections[i].offsetTop - 10 <= y){
+            idx = i;
+          } else break;
+        }
+        links.forEach((l,i)=> l.classList.toggle('active', i===idx));
+      }
+
+      // smooth scroll tweak: adjust for fixed header/menu (offset)
+      links.forEach(l=>{
+        l.addEventListener('click', function(e){
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          const top = target.getBoundingClientRect().top + window.pageYOffset - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar-height')) + parseInt(getComputedStyle(document.documentElement).getPropertyValue('--menu-height')));
+          window.scrollTo({ top, behavior:'smooth' });
+        });
+      });
+
+      window.addEventListener('scroll', onScroll, { passive:true });
+      window.addEventListener('resize', onScroll);
+      onScroll();
+    })();
+
+    // OPTIONAL: Improve keyboard accessibility for dots/arrows
+    (function(){
+      const prev = document.getElementById('prevBtn');
+      const next = document.getElementById('nextBtn');
+      prev.addEventListener('keyup', e => { if(e.key === 'Enter') prev.click(); });
+      next.addEventListener('keyup', e => { if(e.key === 'Enter') next.click(); });
+    })();
+  </script>
+
 </body>
 </html>
-<script>
-        var imagenActual = 1; 
-        var intervalo; 
 
-        function FondoA() {
-            imagenActual = (imagenActual === 1) ? 6 : imagenActual - 1; 
-            actualizarFondo();
-            reiniciarIntervalo();
-        }
-        
-        function FondoS() {
-            imagenActual = (imagenActual === 6) ? 1 : imagenActual + 1; 
-            actualizarFondo();
-            reiniciarIntervalo();
-        }
-
-        function actualizarFondo() {
-            const main = document.querySelector('.content1');
-            var urlImagen = `img${imagenActual}.jpg`; 
-            main.style.backgroundImage = `url('${urlImagen}')`;
-        }
-
-        function cambio() {
-            intervalo = setInterval(function() {
-                FondoS();
-            }, 3000);
-        }
-
-        function reiniciarIntervalo() {
-            clearInterval(intervalo);
-            cambio();
-        }
-        
-        window.onload = function() {
-            cambio();
-        };
-    </script>
